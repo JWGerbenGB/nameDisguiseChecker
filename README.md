@@ -1,61 +1,63 @@
+Source code below:
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.regex.Pattern;
 
-public class M {
+public class Main {
+    private static final Pattern nonASCII = Pattern.compile("[^\\x00-\\x7f]");
+    private static final Pattern nonLETNUM = Pattern.compile("[^a-zA-Z0-9\\s]");
+    static GraphicsConfiguration gc;
 
     public static void main(String[] args){
-        int I = 0;
-        String p = "Name input";
-        Pattern a = Pattern.compile("[^\\x00-\\x7f]");
-        Pattern b = Pattern.compile("[^a-zA-Z0-9\\s]");
-        JFrame f= new JFrame();
-        f.setTitle("Gerben's Name disguise checker");
-        f.setSize(600, 400);
-        f.setLocation(200, 200);
-        f.setLayout(new GridLayout(0,2));
+        JFrame frame= new JFrame(gc);
+        frame.setTitle("Gerben's Name disguise checker");
+        frame.setSize(600, 400);
+        frame.setLocation(200, 200);
+        frame.setLayout(new GridLayout(0,2));
 
-        f.add(new JLabel("Input:"));
-        JTextField t = new JTextField();
-        f.add(t);
-        f.add(new JLabel(""));
+        frame.add(new JLabel("Input:"));
+        JTextField textField = new JTextField();
+        frame.add(textField);
+        frame.add(new JLabel(""));
         JButton Test = new JButton("Check Name");
-        f.add(Test);
+        frame.add(Test);
 
-        JLabel[] l = new JLabel[6];
-        for(int i = 0; i < 6; i++){
-            l[i] = new JLabel("");
-        }
-
+        JLabel Label_1 = new JLabel("");
+        JLabel Label_2 = new JLabel("");
+        JLabel Label_3 = new JLabel("");
+        JLabel Label_4 = new JLabel("");
+        JLabel Label_5 = new JLabel("");
+        JLabel Label_6 = new JLabel("");
         Test.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String i = t.getText().trim();
-                l[0].setText(i);
-                l[1].setText(i.toLowerCase());
-                l[2].setText(a.matcher(i).replaceAll(""));
-                l[3].setText(a.matcher(i).replaceAll("").toLowerCase());
-                l[4].setText(b.matcher(i).replaceAll(""));
-                l[5].setText(b.matcher(i).replaceAll("").toLowerCase());
-                f.setVisible(true);
+                String Input = textField.getText().trim();
+                Label_1.setText(Input);
+                Label_2.setText(Input.toLowerCase());
+                Label_3.setText(nonASCII.matcher(Input).replaceAll(""));
+                Label_4.setText(nonASCII.matcher(Input).replaceAll("").toLowerCase());
+                Label_5.setText(nonLETNUM.matcher(Input).replaceAll(""));
+                Label_6.setText(nonLETNUM.matcher(Input).replaceAll("").toLowerCase());
+                frame.setVisible(true);
             }
         });
-        f.add(new JLabel(p+":"));
-        f.add(l[I++]);
-        f.add(new JLabel(p+" (Lowercase):"));
-        f.add(l[I++]);
-        f.add(new JLabel(p+" (ASCII only):"));
-        f.add(l[I++]);
-        f.add(new JLabel(p+" (ASCII only, Lowercase):"));
-        f.add(l[I++]);
-        f.add(new JLabel(p+" (Letters/nums only):"));
-        f.add(l[I++]);
-        f.add(new JLabel(p+" (Letters/nums only, lowercase):"));
-        f.add(l[I++]);
+        frame.add(new JLabel("Name input:"));
+        frame.add(Label_1);
+        frame.add(new JLabel("Name input (Lowercase):"));
+        frame.add(Label_2);
+        frame.add(new JLabel("Name input (ASCII only):"));
+        frame.add(Label_3);
+        frame.add(new JLabel("Name input (ASCII only, Lowercase):"));
+        frame.add(Label_4);
+        frame.add(new JLabel("Name input (Letters/nums only):"));
+        frame.add(Label_5);
+        frame.add(new JLabel("Name input (Letters/nums only, lowercase):"));
+        frame.add(Label_6);
 
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setResizable(false);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
     }
 }
